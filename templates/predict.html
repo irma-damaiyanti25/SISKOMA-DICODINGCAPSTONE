@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analisis Sentimen</title>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/predict.css') }}">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+    <h2>🤖 SISKOMA AI</h2>
+
+    <div class="menu" id="menu">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/predict" class="active">Analisis</a>
+        <a href="/laporan">Laporan</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<!-- ================= CONTENT ================= -->
+<div class="container">
+
+    <div class="card">
+
+        <h2 class="title">Analisis Sentimen</h2>
+
+        <!-- FORM -->
+        <form method="post" id="form-predict">
+            <textarea name="text" placeholder="Masukkan kalimat..." required>{{ text if text else '' }}</textarea>
+            <button type="submit">Analisis Sekarang</button>
+        </form>
+
+        <!-- LOADING -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>🤖 Sedang menganalisis sentimen...</p>
+        </div>
+
+        <!-- HASIL -->
+        {% if prediction %}
+        <div class="result">
+
+            <div class="section">
+                <p class="label">Kalimat:</p>
+                <p class="text">{{ text }}</p>
+            </div>
+
+            <div class="section">
+                <p class="label">Hasil Sentimen:</p>
+
+                {% if prediction == 'positif' %}
+                    <p class="positive">😊 Positif</p>
+                {% elif prediction == 'negatif' %}
+                    <p class="negative">😠 Negatif</p>
+                {% else %}
+                    <p class="neutral">😐 Netral</p>
+                {% endif %}
+            </div>
+
+        </div>
+        {% endif %}
+
+        <!-- REKOMENDASI -->
+        {% if rekomendasi %}
+        <div class="result rekomendasi-box">
+            <p class="label">🤖 Saran Rekomendasi :</p>
+            <p class="rekomendasi-text">
+                {{ rekomendasi | replace('\n', '<br>') | safe }}
+            </p>
+        </div>
+        {% endif %}
+
+        <!-- BACK -->
+        <a href="/dashboard" class="back">⬅ Kembali ke Dashboard</a>
+
+    </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<div class="footer">
+    © 2026 SISKOMA AI • Capstone Dicoding Bootcamp Batch 10
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+    const form = document.getElementById("form-predict");
+    const loading = document.getElementById("loading");
+
+    form.addEventListener("submit", function () {
+        loading.classList.remove("hidden");
+    });
+
+    function toggleMenu() {
+        document.getElementById("menu").classList.toggle("active");
+    }
+</script>
+
+</body>
+</html>

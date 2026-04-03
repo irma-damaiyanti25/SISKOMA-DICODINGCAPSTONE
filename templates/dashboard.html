@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard - Sentiment AI</title>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>🤖 SISKOMA AI</h2>
+
+    <div class="menu" id="menu">
+        <a href="/dashboard" class="active">Dashboard</a>
+        <a href="/predict">Analisis</a>
+        <a href="/laporan">Laporan</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <div class="content-box">
+        <h1 class="title">Welcome 👋</h1>
+        <p class="subtitle">Silakan pilih fitur yang ingin digunakan</p>
+
+        <div class="card-grid">
+
+            <div class="card">
+                <div class="icon">📊</div>
+                <h3>Analisis Sentimen</h3>
+                <p>Analisis teks untuk mengetahui sentimen pengguna.</p>
+                <a href="/predict">Mulai</a>
+            </div>
+
+            <div class="card">
+                <div class="icon">📈</div>
+                <h3>Laporan</h3>
+                <p>Lihat hasil analisis dan rekomendasi AI.</p>
+                <a href="/laporan">Lihat</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+     © 2026 SISKOMA AI • Capstone Dicoding Bootcamp Batch 10 
+</div>
+
+<script>
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>

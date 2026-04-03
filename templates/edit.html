@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Data</title>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/edit.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h2 class="title">✏️ Edit Data Analisis</h2>
+
+        <form method="post">
+
+            <!-- TEXT -->
+            <div class="form-group">
+                <label>📝 Teks:</label>
+                <textarea name="text" required>{{ data.text }}</textarea>
+            </div>
+
+            <!-- REKOMENDASI -->
+            <div class="form-group">
+                <label>🤖 Rekomendasi:</label>
+                <textarea name="rekomendasi">{{ data.rekomendasi }}</textarea>
+                <small>Kosongkan jika ingin generate ulang dari AI</small>
+            </div>
+
+            <!-- BUTTON -->
+            <button type="submit">Update Data</button>
+
+        </form>
+
+        <!-- BACK -->
+        <a href="/laporan" class="back">⬅ Kembali ke Laporan</a>
+
+    </div>
+</div>
+
+</body>
+</html>

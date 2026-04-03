@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Sentimen</title>
+
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/laporan.css') }}">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2>📊 SISKOMA AI</h2>
+
+    <div class="menu" id="menu">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/predict">Analisis</a>
+        <a href="/laporan" class="active">Laporan</a>
+        <a href="/logout">Logout</a>
+    </div>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+    <div class="card">
+
+        <h2 class="title">Data Hasil Analisis</h2>
+
+        <!-- TABLE -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Pesan</th>
+                        <th>Sentimen</th>
+                        <th>Rekomendasi</th>
+                        <th>Waktu</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% if data %}
+                        {% for row in data %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+
+                            <td class="text-cell">{{ row.text }}</td>
+
+                            <td>
+                                {% if row.sentiment == 'positif' %}
+                                    <span class="positive">😊 Positif</span>
+                                {% elif row.sentiment == 'negatif' %}
+                                    <span class="negative">😠 Negatif</span>
+                                {% else %}
+                                    <span class="neutral">😐 Netral</span>
+                                {% endif %}
+                            </td>
+
+                            <td class="rekomendasi-cell">
+                                {{ row.rekomendasi }}
+                            </td>
+
+                            <td class="time">{{ row.time }}</td>
+
+                            <td class="aksi">
+                                
+                            <!-- EDIT hanya admin -->
+                            {% if session['role'] == 'admin' %}
+                              <a href="/edit/{{ loop.index0 }}" class="edit">✏️</a>
+                             {% endif %}
+
+                                <a href="/delete/{{ loop.index0 }}">🗑️</a>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="empty">Belum ada data</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- INFO -->
+       <!-- <div class="info">
+            <h3>Insight</h3>
+            <ul>
+                <li>Distribusi sentimen dapat dianalisis berdasarkan waktu</li>
+                <li>Data ini dapat digunakan untuk evaluasi performa sistem</li>
+                <li>Rekomendasi membantu meningkatkan pengalaman pengguna</li>
+            </ul>
+        </div>
+
+         -->
+        <!-- BACK -->
+        <a href="/dashboard" class="back">⬅ Kembali ke Dashboard</a>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 SISKOMA AI • Capstone Dicoding Bootcamp Batch 10
+</div>
+
+<!-- SCRIPT -->
+<script>
+function toggleMenu() {
+    document.getElementById("menu").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
